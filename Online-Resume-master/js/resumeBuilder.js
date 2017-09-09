@@ -183,7 +183,7 @@ projects.display = function() { "use strict";
 
 projects.display();
 
-var svg = d3.select("svg").on("touchmove mousemove", moved),
+var svg = d3.select("svg").on("touchmove mousemove", Moved),
     width = +svg.attr("width"),
     height = +svg.attr("height");
 
@@ -220,7 +220,7 @@ var site = svg.append("g")
     .attr("r", 2.5)
     .call(redrawSite);
 
-function moved() { "use strict";
+function Moved() { "use strict";
     sites[0] = d3.mouse(this);
     redraw();
 }
