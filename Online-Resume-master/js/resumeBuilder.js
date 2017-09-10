@@ -5,19 +5,19 @@ var bio = {
         "mobile": "707-631-9953",
         "email": "lking3497@gmail.com",
         "github": "lking97",
-        "location": "Fairfield, CA",
+        "location": "Suisun City, CA",
     },
-    "welcomeMsg": "Welcome All Kaioshins!!!! (Kaioshin is from an anime.) I am an aspiring to become a web designer. I have experience with multiple programming languages and I like to design web pages. I also love video games and anime!",
+    "welcomeMessage": "Welcome All Kaioshins!!!! (Kaioshin is from an anime.) I am an aspiring to become a web designer. I have experience with multiple programming languages and I like to design web pages. I also love video games and anime!",
     "skills": [
         "HTML5", "CSS3", "JavaScript", "C++", "Visual Basic", "Photoshop", "Anime Connoisseur"
     ],
-    "bioPic": "images/LloydKing.PNG",
+    "biopic": "images/LloydKing.PNG",
 };
 
+bio.display = function() { "use strict";
 var formattedName = HTMLheaderName.replace("%data%", bio.name);
 var formattedRole = HTMLheaderRole.replace("%data%", bio.role);
-$("#header").prepend(formattedRole);
-$("#header").prepend(formattedName);
+$("#header").prepend(formattedName, formattedRole);
 
 var formattedContactInfo = [];
 formattedContactInfo.push(HTMLmobile.replace("%data%", bio.contacts.mobile));
@@ -26,77 +26,75 @@ formattedContactInfo.push(HTMLgithub.replace("%data%", bio.contacts.github));
 formattedContactInfo.push(HTMLlocation.replace("%data%", bio.contacts.location));
 
 
-var formattedBiopic = HTMLbioPic.replace("%data%", bio.bioPic);
-var formattedMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMsg);
-$("#header").append(formattedBiopic);
-$("#header").append(formattedMsg);
+var formattedBiopic = HTMLbioPic.replace("%data%", bio.biopic);
+var formattedMsg = HTMLwelcomeMsg.replace("%data%", bio.welcomeMessage);
+$("#header").append(formattedBiopic, formattedMsg);
 
-for (var i in formattedContactInfo) {
-    $("#topContacts").append(formattedContactInfo[i]);
-    $("#footerContacts").append(formattedContactInfo[i]);
+for (var indexCount = 0; indexCount < formattedContactInfo.length; indexCount++) {
+    $("#topContacts, #footerContacts").append(formattedContactInfo[indexCount]);
 }
 
-if (bio.skills.length > 0) {
+$("#header").append(HTMLskillsStart);
 
-    $("#header").append(HTMLskillsStart);
+var formattedSkill = [];
+formattedSkill.push(HTMLskills.replace("%data%", bio.skills[0]));
+formattedSkill.push(HTMLskills.replace("%data%", bio.skills[1]));
+formattedSkill.push(HTMLskills.replace("%data%", bio.skills[2]));
+formattedSkill.push(HTMLskills.replace("%data%", bio.skills[3]));
+formattedSkill.push(HTMLskills.replace("%data%", bio.skills[4]));
+formattedSkill.push(HTMLskills.replace("%data%", bio.skills[5]));
+formattedSkill.push(HTMLskills.replace("%data%", bio.skills[6]));
 
-    var formattedSkill = HTMLskills.replace("%data%", bio.skills[0]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[1]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[2]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[3]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[4]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[5]);
-    $("#skills").append(formattedSkill);
-    formattedSkill = HTMLskills.replace("%data%", bio.skills[6]);
-    $("#skills").append(formattedSkill);
-}
+formattedSkill.forEach(function(indexCount){
+$("#skills").append(indexCount);
+});
+};
+
+bio.display();
+
 
 var work = {
     "jobs": [{
             "employer": "Geek Squad", //work experience
             "title": "Consultation Agent",
+            "location": "1547 Gateway Blvd, Fairfield, CA",
             "dates": "March 26, 2017 - Present",
             "description": "A Geek Squad Consultation Agent is a brand ambassador for both the Geek Squad and Best Buy brands. As the solutions expert, the Consultation Agent manages the Geek Squad check-in and check-out experience for customers and helps them find the complete solution that works for them. They coach the sales team, building trust and explaining services and technology to help meet all customer needs. Their knowledge of services, technology and business group strategies in partnership with the sales team ensures no customer is ever left unserved or underserved."
-        },
-        {
-            "employer": "In-N-Out Burger",
-            "title": "Clean-Up Associate",
-            "dates": "2016 - 2017",
-            "description": "clean up entire In-N-Out resturaunt. Floors, stainless steel surfaces, and put away deliveryies."
-        }
-    ]
-};
+        }]
+    };
 
-function displayWork() { "use strict";
-    for (var job in work.jobs) { //create new div for work experience
-        $("#workExperience").append(HTMLworkStart);
-        //concat employer and title
+
+work.display = function() {
+    "use strict";
+ if (work.jobs.length > 0) {
+    var len = work.jobs.length;
+      for (var job = 0; job < len; job++) {
         var formattedEmployer = HTMLworkEmployer.replace("%data%", work.jobs[job].employer);
         var formattedTitle = HTMLworkTitle.replace("%data%", work.jobs[job].title);
-        var formattedEmployerTitle = formattedEmployer + formattedTitle;
-        $(".work-entry:last").append(formattedEmployerTitle);
-
+        var formattedLocation = HTMLworkLocation.replace("%data%", work.jobs[job].location);
         var formattedDates = HTMLworkDates.replace("%data%", work.jobs[job].dates);
-        $(".work-entry:last").append(formattedDates);
-
         var formattedDescription = HTMLworkDescription.replace("%data%", work.jobs[job].description);
-        $(".work-entry:last").append(formattedDescription);
-    }
-}
+        var formattedEmployerTitle = formattedEmployer + formattedTitle;
 
-displayWork();
+        $('#workExperience').append(HTMLworkStart);
+        $('.work-entry:last').append(formattedEmployerTitle);
+        $('.work-entry:last').append(formattedDates);
+        $('.work-entry:last').append(formattedLocation);
+        $('.work-entry:last').append(formattedDescription);
+      }
+    }
+};
+
+work.display();
+
+
 
 var education = {
     "schools": [{
         "name": "Solano Community College", //my education
-        "city": "Fairfield, CA",
+        "location": "Fairfield, CA",
         "degree": "Associates",
-        "majors": "Computer Engineering",
+        "majors": ["Scientific and Quantitative Reasoning", "Computer Engineering"],
         "dates": "2015-2017",
     }],
     "onlineCourses": [{
@@ -109,35 +107,44 @@ var education = {
 
 education.display = function() { "use strict";
     if (education.schools.length > 0 || education.onlineCourses.length > 0) {
-        for (var school in education.schools) {
-            $("#education").append(HTMLschoolStart);
 
+        var len = education.schools.length;
+        for (var school = 0; school < len; school++) {
             var formattedSchoolName = HTMLschoolName.replace("%data%", education.schools[school].name);
             var formattedSchoolDegree = HTMLschoolDegree.replace("%data%", education.schools[school].degree);
             var formattedSchoolDates = HTMLschoolDates.replace("%data%", education.schools[school].dates);
-            var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools[school].city);
-            var formattedSchoolMajor = HTMLschoolMajor.replace("%data%", education.schools[school].majors);
+            var formattedSchoolLocation = HTMLschoolLocation.replace("%data%", education.schools[school].location);
+            var formattedNameDegree = formattedSchoolName + formattedSchoolDegree;
 
-
-            $(".education-entry:last").append(formattedSchoolName + formattedSchoolDegree);
+            $("#education").append(HTMLschoolStart);
+            $(".education-entry:last").append(formattedNameDegree);
             $(".education-entry:last").append(formattedSchoolDates);
             $(".education-entry:last").append(formattedSchoolLocation);
-            $(".education-entry:last").append(formattedSchoolMajor);
+
+            var mLen = education.schools[school].majors.length;
+            for (var major = 0; major < mLen; major++) {
+          var formattedMajor = HTMLschoolMajor.replace("%data%", education.schools[school].majors[major]);
+
+          $('.education-entry:last').append(formattedMajor);
+            }
         }
 
-        if (education.onlineCourses.length > 0) {
             $("#education").append(HTMLonlineClasses);
-            for (var online in education.onlineCourses) {
-                $("#education").append(HTMLschoolStart);
-                var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[online].title);
+
+            var oLen = education.onlineCourses.length;
+
+            for (var online = 0; online < oLen; online++) {
+                var formattedOnlineTitle = HTMLonlineTitle.replace("%data%", education.onlineCourses[online].title).replace('#', education.onlineCourses[online].url);
                 var formattedOnlineSchool = HTMLonlineSchool.replace("%data%", education.onlineCourses[online].school);
                 var formattedOnlineDates = HTMLonlineDates.replace("%data%", education.onlineCourses[online].dates);
                 var formattedOnlineURL = HTMLonlineURL.replace("%data%", education.onlineCourses[online].url);
+                var formattedTitleSchool = formattedOnlineTitle + formattedOnlineSchool;
 
-                $(".education-entry:last").append(formattedOnlineTitle + formattedOnlineSchool);
+                $("#education").append(HTMLschoolStart);
+                $(".education-entry:last").append(formattedTitleSchool);
                 $(".education-entry:last").append(formattedOnlineDates);
                 $(".education-entry:last").append(formattedOnlineURL);
-            }
+
         }
 
     }
@@ -158,110 +165,27 @@ var projects = {
 };
 
 projects.display = function() { "use strict";
-    for (var project in projects.projects) {
-        $("#projects").append(HTMLprojectStart);
-
+    if (projects.projects.length > 0) {
+        var pLen = projects.projects.length;
+      for (var project = 0; project < pLen; project++) {
         var formattedTitle = HTMLprojectTitle.replace("%data%", projects.projects[project].title);
-        $(".project-entry:last").append(formattedTitle);
-
         var formattedDates = HTMLprojectDates.replace("%data%", projects.projects[project].dates);
-        $(".project-enrty:last").append(formattedDates);
-
         var formattedDescription = HTMLprojectDescription.replace("%data%", projects.projects[project].description);
-        $(".project-entry:last").append(formattedDescription);
 
-        if (projects.projects[project].images.length > 0) {
-            for (var image in projects.projects[project].images) {
-                var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
-                $(".project-entry:last").append(formattedImage);
-            }
+        $('#projects').append(HTMLprojectStart);
+        $('.project-entry:last').append(formattedTitle);
+        $('.project-entry:last').append(formattedDates);
+        $('.project-entry:last').append(formattedDescription);
+
+        var iLen = projects.projects[project].images.length;
+        for (var image = 0;  image < iLen; image++) {
+          var formattedImage = HTMLprojectImage.replace("%data%", projects.projects[project].images[image]);
+
+          $('.project-entry:last').append(formattedImage);
         }
-
-
+      }
     }
 };
 
 projects.display();
-
-var svg = d3.select("svg").on("touchmove mousemove", Moved),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
-
-var sites = d3.range(100)
-    .map(function(d) { "use strict";
-        return [Math.random() * width, Math.random() * height];
-    });
-
-var voronoi = d3.voronoi()
-    .extent([
-        [-1, -1],
-        [width + 1, height + 1]
-    ]);
-
-var polygon = svg.append("g")
-    .attr("class", "polygons")
-    .selectAll("path")
-    .data(voronoi.polygons(sites))
-    .enter().append("path")
-    .call(redrawPolygon);
-
-var link = svg.append("g")
-    .attr("class", "links")
-    .selectAll("line")
-    .data(voronoi.links(sites))
-    .enter().append("line")
-    .call(redrawLink);
-
-var site = svg.append("g")
-    .attr("class", "sites")
-    .selectAll("circle")
-    .data(sites)
-    .enter().append("circle")
-    .attr("r", 2.5)
-    .call(redrawSite);
-
-function Moved() { "use strict";
-    sites[0] = d3.mouse(this);
-    redraw();
-}
-
-function redraw() { "use strict";
-    var diagram = voronoi(sites);
-    polygon = polygon.data(diagram.polygons()).call(redrawPolygon);
-    link = link.data(diagram.links()), link.exit().remove();
-    link = link.enter().append("line").merge(link).call(redrawLink);
-    site = site.data(sites).call(redrawSite);
-}
-
-function redrawPolygon(polygon) { "use strict";
-    polygon
-        .attr("d", function(d) {
-            return d ? "M" + d.join("L") + "Z" : null;
-        });
-}
-
-function redrawLink(link) { "use strict";
-    link
-        .attr("x1", function(d) {
-            return d.source[0];
-        })
-        .attr("y1", function(d) {
-            return d.source[1];
-        })
-        .attr("x2", function(d) {
-            return d.target[0];
-        })
-        .attr("y2", function(d) {
-            return d.target[1];
-        });
-}
-
-function redrawSite(site) { "use strict";
-    site
-        .attr("cx", function(d) {
-            return d[0];
-        })
-        .attr("cy", function(d) {
-            return d[1];
-        });
-}
+$("#mapDiv").append(googleMap);
